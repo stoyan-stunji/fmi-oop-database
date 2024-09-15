@@ -121,7 +121,10 @@
     std::cin >> table_name;
 
     std::size_t index = this->base.is_table_in_database(table_name);
-    if(index == -1) { return; }
+    if(index == -1)
+    { 
+        return;
+    }
 
     std::cin >> column_name >> column_type;
 
@@ -129,30 +132,37 @@
  	    this->base.add_column_base(index, column_name, column_type);
 
     //class Database:
-    void database::add_column_base(...) {
-    this->data[index].add_column_table(name, type); }
+    void database::add_column_base(...)
+    {
+        this->data[index].add_column_table(name, type);
+    }
 
     //class Table:
-    void table::add_column_table(...) {
-    if(type == 's') {
-        std::size_t size = this->data[0]->get_size_of_column();
-        std::vector<std::string> to_add;
+    void table::add_column_table(...)
+    {
+        if(type == 's')
+        {
+           std::size_t size = this->data[0]->get_size_of_column();
+           std::vector<std::string> to_add;
 
-        for (std::size_t i = 0; i < size; ++i)
-            to_add.push_back("NULL");
+            for (std::size_t i = 0; i < size; ++i)
+               to_add.push_back("NULL");
         
-        std::vector<bool> to_add_bool;
-        for (std::size_t i = 0; i < size; ++i)
-            to_add_bool.push_back(0);
-            
-        column* temp = new column_string;
-    // fill the column with the upper info;
-        this->data.push_back(temp);
-    	}
-    else if(type == 'i') ...
+            std::vector<bool> to_add_bool;
 
+            for (std::size_t i = 0; i < size; ++i)
+               to_add_bool.push_back(0);
+            
+            column* temp = new column_string;
+
+            // fill the column with the upper info;
+            this->data.push_back(temp);
+        }
+        else if(type == 'i') ...
+    }
+
+Заб. Премахнати са част от функциите, променливите и общите действия, за краткост.
 
     Фигура 4. Част от реализацията на add_column().
 
-    Заб. Премахнати са част от функциите, 
-    променливите и общите действия, за краткост.
+
