@@ -56,7 +56,7 @@
 
 Основите на програмата се полагат с четирите основни класа class Column, class Column_String, class Column_Int и class Column_Double (Фигура 2). Първият клас представлява чисто виртуален клас - колона, съдържащ член данни, характеристичен вектор и име. В него също така се съдържат селектори и мутатори, както и методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните – добавяне, смяна и изтриване на данни. Класовете Column_String, Column_Int и Column_Double наследяват класа Column и интерпретират гореспоменатите функции, но по свой определен начин в зависимост от задачата, която изпълняват. Класът Column_String има единствен вектор, съдържащ низове, от стандартната библиотека, и представлява една колона от определена таблица от базата данни. Тъй като този клас е наследник на клас Column, той също така притежава селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. Подобно на клас Column_String, класът Column_Int също има стандартен вектор, но този път данните му са от тип цели числа. Класът Column_Double пък съдържа данни от тип дробни числа. Също като Column_String, двата класа имат селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. Вече запознати с основата на системата база данни, може да се види как изглежда всяка таблица. Всеки файл, отговарящ на една таблица, е от тип .bin и изглежда по следния начин (Фигура 1):
 
-[![1.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_1.PNG) 
+![1.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_1.PNG) 
 
     Фигура 1. Примерна таблица.
 
@@ -64,7 +64,7 @@
 
 3.2. Диаграми
 
-[![2.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_2.png)
+![2.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_2.png)
 
     Фигура 2. UML Диаграма.
 
@@ -91,7 +91,7 @@
 - close() – [05] – затваря текущия каталог и запазва направените до този момент промени;
 - help() – [06] – извежда меню с функциите на програмата;
 
-[![3.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_3.png)
+![3.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_3.png)
 
     Фигура 3. Пример
 
@@ -173,7 +173,7 @@
 
 Поради голямото наличие на еднакви действия, които трябва да се извършват при работа с програмата, е нужна правилна оптимизация. На (Фигура 5) са показани четири метода на class Commands, които се използват в почти всички гореописани функции.
 
-[![4.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_5.png)
+![4.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_5.png)
 
     Фигура 5. Оптимизация в class Compile.
 
@@ -183,27 +183,27 @@
 
 За да се покаже правилната работа на програмата, е нужно да се представят различни тестови сценарии. 
 
-[![5.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_6.png)
+![5.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_6.png)
 
     Фигура 6. save_as()
 
-[![6.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_7.png)
+![6.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_7.png)
 
     Фигура 7. xport()
 
-[![7.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_8.png)
+![7.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_8.png)
 
     Фигура 8. open()
 
-[![8.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_9.png)
+![8.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_9.png)
 
     Фигура 9. describe()
 
-[![9.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_10.png)
+![9.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_10.png)
 
     Фигура 10. delete()
 
-[![10.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_11.PNG)
+![10.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_11.PNG)
 
     Фигура 11. column_int::write_into_file()
 
