@@ -1,224 +1,143 @@
+# DATABASE
+- This project was developed as part of the course “Object-Oriented Programming” at Sofia University, FMI. It demonstrates the design and implementation of a database system using object-oriented principles, focusing on structured data management, database schema design and SQL-like operations.
 
-# БАЗА ОТ ДАННИ
+*This documentation is written according to the requirements, presented in the course “Object-Oriented Programming” at FMI.*
 
-СУ - ФМИ - Летен семестър 2023/2024
-- Изготвил: Стоян Стоянов Иванов
-- Специалност: Информатика, 2 курс
-- Ръководител на курса: доц. д-р Петър Армянов
+## 1. Introduction
+### 1.1 Project Description and Idea
+- The main idea of this project is to develop a program, whose purpose is to manage data within a database. The database consists of a series of tables, where each table is stored in its own file;
+- The database itself is recorded in a main file called a catalog, which contains a list of all tables. Each individual table is built from arrays of data that are related to each other;
+- The database is organized in such a way that it uses records and fields, allowing the data to be used more easily and efficiently.
 
-# 1. Увод
-1.1 Описание и идея на проекта
+### 1.2 Goal and Tasks of the Development
+- The goal of this project is to implement a system that manages a database. The system must implement methods for:
+    - importing a table into the database;
+    - providing a list of the names of all tables;
+    - displaying specific types of information about a given table;
+    - showing rows from a table;
+    - saving the contents of a table into a separate file;
+    - selecting rows from a table that contain information specified by the user;
+    - creating a new table containing user-specified data that originates from another table;
+    - extending a specific table;
+    - updating a table with user-provided information;
+    - inserting or removing rows from particular tables.
+- One of the main tasks of a database is to store large amounts of data in a structured format and to provide mechanisms for storing and organizing this data, allowing fast access and efficient searching and processing. The system also provides control over data access, protection of data from unauthorized access and ensures data integrity and consistency;
+- Another important task is providing the ability to extract specific information from the database for analysis, reporting and decision-making. This enables the discovery of trends, generation of reports and making decisions based on the available data.
 
-Основната идея на проекта е разработката на програма, чиято цел е да управлява данни в дадена база данни. Базата данни се състои от серии от таблици, като всяка таблица е записана в собствен файл. Тази база е записана в главен файл, наречен каталог, съдържащ списък от таблиците. Всяка отделна таблица е изградена от масиви от данни, които имат връзка помежду си. Базата е организирана така, че да използва записи и полета, за да може данните да се използват по-лесно и по-ефективно.  
+### 1.3 Documentation Structure
+- The project documentation consists of the files necessary for compiling the project (`.cpp` and `.hpp`), a sample catalog along with the example tables contained within it and a text file containing the project documentation.
+- The documentation begins with an analysis of the problem and the approach used for solving it. This is followed by a brief description of the classes created to implement the solution. The document concludes with ideas for future improvements.
 
-1.2 Цел и задачи на разработката 
+## 2. Overview of the Subject Area
+### 2.1 Main Definitions, Concepts and Algorithms Used
+- The program uses the building blocks of object-oriented programming to implement the assigned tasks. It includes classes, which are data types that provide a framework for creating different objects. The data and functions of a class are called members. Objects, in turn, represent instances of given classes. They define specific properties and behavior for executing the code. The term "instance" refers to the relationship between an object and its class;
+- The program also makes use of the concept of a method - a function that defines the behavior of a given class or its objects. Methods are specific to a class and specify how an object can use or modify data. Another important component is the constructor - a special type of method used to automatically create objects of a class. There are also special types of constructors, such as copy constructors, which create specific types of objects or follow certain rules for object creation;
+- Other important concepts fundamental to the correct operation of this object-oriented program are selectors and mutators, which are used respectively for retrieving a value and modifying a member variable.
+- Another valuable principle is abstraction. Through abstraction, the end user sees only the interface and not the entire internal code. The ideas of encapsulation, inheritance and polymorphism are also utilized. Through encapsulation, certain information within a class is protected from the rest of the code. By using inheritance, several classes are generalized under a common structure. Polymorphism refers to the ability of different subclasses in a hierarchy to respond to the same command in their own specific way.
 
-Целта на този проект е да се реализира система, управляваща база данни. Нужно е да се осъществят методите: внасяне на таблица в базата данни, предоставяне на списък с имената на всички таблици, извеждане на специфичен тип информация за определена таблица, показване на редове на дадена таблица, записване на съдържанието на таблица в отделен файл, посочване на редове на дадена таблица, съдържаща търсена от потребителя информация, създаване на нова таблица, обхващаща упоменати от потребителя данни, които са включени в друга таблица, разширяване на специфична таблица, актуализиране на дадена таблица с въведена от потребителя информация, вмъкване и премахване на нови редове на определени таблици. 
+### 2.2 Definition of Problems and Complexity of the Task
+- The problem that needs to be solved is the creation of a database and the implementation of methods for processing the data within it. The program must support a number of operations, which the author has divided into four types:
+    - `Interface-type` operations: opening a database and correctly reading information from several files - one main file containing the names of the individual tables and several other files containing the data of the individual tables; saving changes made by the user to the tables; saving a separate table to a path specified by the user; presenting a list of the different operations that can be performed; closing the program;
+    - `Database-type` operations: presenting a list of the names of the tables in the database; inserting a new table into the database using a specified file name; displaying information by name about the data types of a table specified by the user through a dialog mode; writing the contents of a specific table by name formatted in a specific way;
+    - `Table-type` operations: displaying all rows of a table specified by the user according to column, cell content, and name, where the information is presented in pages; creating a new table containing specific data that are included in another table according to columns and cell content; adding a new column with the largest number in a given table, where for all existing rows in the table the value of this column must be empty; updating a table according to columns and cell contents; deleting a row from a table containing information unwanted by the user; inserting a new row into a specific table with values provided by the user;
+    - `Additional` operations: validations for vectors of strings, vectors of integers, and vectors of floating-point numbers; validation of the content of table cells; adding and removing a cell to a row; adding and removing a row to a table; adding a table to the database; transposing a table for row view; writing empty values for all existing rows in a table; checking the validity of a table name and the presence of duplicates;
+- The complexity of the task can be divided into several aspects: working with the file system, where information is read from files and written back to them or new files are created; data processing - searching, filtering, and modifying, and managing the user interface. The implementation of all operations and the corresponding validation of data and commands can be challenging. Possible problems include incorrect data reading, memory overflow, errors during file writing and reading, errors in the user interface and etc.;
+- To successfully solve the task, it is important to design an appropriate system architecture with a clear separation of responsibilities and good data organization. In addition, appropriate checks and validations of the data must be performed to ensure the correctness of the operations and the protection of the data.
 
-Една от основните задачи на базата данни е съхранението на големи количества данни в структуриран формат и  предоставянето на механизми за съхранение и организация на тези данни, позволяващи бърз достъп и ефективност при търсенето и обработката им. Осъществява се контрол на достъпа до данните, защита на данните от неправомерен достъп и осигуряване на цялостност и съответствие на данните. Друга важна задача е предоставянето на възможност за извличането на специфична информация от базата данни за анализ, отчетност и вземане на решения. Това позволява откриването на тенденции, генерирането на отчети и вземането на решения на базата на наличните данни.
+### 2.3 Approaches and Methods for Solving the Given Problems
+- To solve the given problems in the database and data processing program, various approaches and methods can be used. First, an object-oriented design will be used, as mentioned above. Applying the principles of object-oriented programming will help create more structured and modular code that is easier to understand, maintain and extend;
+- For reading and writing data from and to files, the standard input/output of the C++ language will be used. It is important to note that proper opening, closing and processing of files must be ensured and appropriate checks for errors when working with the file system must be implemented;
+- For storing data in the program and processing tables, structures such as arrays, lists, or trees can be used, but the author has chosen to use only arrays. Emphasis is placed on the organization of the data - it is necessary to ensure efficient access to and searching within it;
+- To guarantee the correctness of the data, various validation methods will be applied. It is very important to perform checks for possible errors when the user enters data and to protect the program from unwanted operations and inconsistent states;
+- A user interface must be designed that is intuitive and easy to use. Last but not least, in order to ensure the quality of the program, it is extremely important to perform systematic tests and checks. Debugging must be carried out carefully and systematically by analyzing the causes of errors and taking appropriate actions to eliminate them.
 
-1.3. Структура на документацията
-
-Документацията на проекта се състои от файловете, необходими за компилирането на проекта (.cpp  и .hpp), каталог-образец, заедно с примерните таблици, съдържащи се в него, и текстовият файл, включващ документацията на проекта. 
-
-Документацията започва с анализ на задачата и подходът за решение. След това е представено кратко описание на класовете, които са създадени за решение на задачата. Завършва се с идеи за бъдещи подобрения. 
-
-# 2. Преглед на предметната област
-
-2.1. Основни дефиниции, концепции и алгоритми, които ще бъдат използвани
-
-Програмата използва градивните елементи на обектно-ориентираното програмиране за реализация на поставените задачи. Включени са класове, които са тип данни, осигуряващи рамка за създаване на различни обекти. Данните и функциите на класа се наричат членове. Обектите от своя страна представляват инстанции на дадени класове. Те дефинират специфични свойства и поведение за изпълнение на кода. Терминът "инстанция" се отнася до връзката между обекта и неговия клас. Програмата се възползва и от понятието метод – това е функция, определяща поведението на даден клас или на обекти в него. Методите са специфични за класа и конкретизират начина, по който обектът може да използва или модифицира данни. Друга важна част е конструкторът^ - специален вид метод, използващ се за автоматично създаване на обектите на класа. Съществуват и специални видове конструктори, като например конструктори за копиране, които създават специфични типове обекти или използват определени правила за създаване на обектите. Други важни понятия, фундаментални за правилната работа на тази обектно-ориентирана програма, са селекторите и мутаторите, които се използват съответно за вземането на стойност и промяната на член данна. Ценен принцип е и абстракцията. Чрез нея крайният потребител вижда само интерфейс, а не целия вътрешен код. Оползотворяват се и идеите за енкапсулиране, наследяване и полиморфизъм. Чрез енкапсулирането се защитава определена информация в рамките на даден клас от останалата част от кода. Използвайки наследяване, се обобщават няколко класа под един общ знаменател. Полиморфизмът се отнася до способността на различните подкласове в йерархията да реагират на една и съща команда по свой собствен начин.
-
-^ Brian Overland, “C++ Without Fear”
-
-2.2. Дефиниране на проблеми и сложност на поставената задача
-
-Проблемът, който трябва да бъде решен, е създаването на база данни и имплементирането на методи за обработка на данните в нея. Програмата трябва да поддържа определен брой операции, които авторът е разделил на четири типа: 
-
--	Операции тип „за интерфейс“: отваряне на база данни и правилно прочитане на информацията от няколко файла – един главен, съдържащ имената на отделните таблици, и няколко други файла, съдържащи данните на отделните таблици; запазване на промените върху таблиците, направени от потребителя; запазване на отделна таблица по указан от потребителя път; представяне на списък с различните операции, които могат да бъдат извършени; затваряне на програмата;
-
-- Операции тип „за база“: представяне на списък с имената на таблиците в базата данни; вмъкване на нова таблица в базата данни по посочено име на файла; извеждане на информация по име за типовете данни на определена от потребителя таблица като е реализиран диалогов режим; запис на съдържанието по име на специфична таблица, форматирано по специфичен начин; 
-
-- Операции тип „за таблица“: извеждане на всички редове на указана от потребителя таблица по колона, съдържание на клетка и име като информацията се представя по страници; създаване на нова таблица, обхващаща определени данни, които са включени в друга таблица по колони и съдържание на клетка; добавяне на нова колона с най-голям номер в дадена таблица като за всички съществуващи редове от таблицата, стойността на тази колона трябва да е празна; актуализация на таблица по колони и съдържание на клетки; изтриване на ред на таблица, съдържаща нежелана от потребителя информация; вмъкване на нов ред в определена таблица с въведени от потребителя стойности.
-
-- Операции тип „за допълнение“: валидации за вектори от низове, вектори от цели числа и вектори от дробни числа; валидация за съдържание на клетки на таблици; добавяне и премахване на клетка към ред; добавяне и премахване на ред към таблица; добавяне на таблица към базата; транспониране на таблица за редови изглед; запис на празни стойности за всички съществуващи редове в таблицата; проверка за валидност на името на таблицата и наличие на дубликати.
-
-Сложността на задачата би могла да бъде разделена на няколко аспекта: работа с файлова система, където се чете информация от файлове и се записва обратно във файловете или се създават нови файлове, обработка на данните – търсене, филтриране и модифициране, и управление на потребителския интерфейс. Имплементацията на всички операции и съответната валидация на данните и командите може да бъде предизвикателна. Възможни са проблеми като неправилно прочитане на данните, препълване на паметта, грешки при запис и четене от файлове, грешки в потребителския интерфейс и др. За успешно решаване на задачата е важно да се проектира подходяща архитектура на системата, с ясно разделение на отговорностите и добра организация на данните. Освен това, е необходимо да се изпълняват подходящи проверки и валидации на данните, за да се гарантира коректността на операциите и защитата на данните.
-
-2.3. Подходи, методи за решаване на поставените проблемите
-
-За решаването на поставения проблеми в програмата за база данни и обработка на данни, може да се използват различни подходи и методи. Най-напред ще се използва обектно-ориентиран дизайн, както е споменато по-горе. Прилагането на ООП принципите ще спомогне за създаване на по-структуриран и модулен код, който е по-лесен за разбиране, поддръжка и разширение. За четене и запис на данни от и към файлове, ще се използва стандартния вход/изход на езика С++. Важно е да се отбележи, че трябва да се гарантира правилното отваряне, затваряне и обработка на файловете, както и да се направят съответни проверки за грешки при работа с файловата система. За съхранение на данните в програмата и обработка на таблици, може да се използват структури като масиви, списъци или дървета, но авторът е избрал да  използва само масиви. Поставя се акцент върху организацията на данните – нужно е да се осигури ефективен достъп и търсене в тях. За гарантиране на коректността на данните, ще се приложат различни методи за валидация. От голямо значение е да се правят проверки за възможни грешки при въвеждане на данни от потребителя и да се предпазва програмата от нежелани операции и неконсистентни състояния. Трябва да се проектира потребителски интерфейс, който е интуитивен и лесен за използване. И не на последно място, за осигуряване на качеството на програмата, от изключителна важност да се извършват систематични тестове и проверки. Отстраняването на грешки трябва да се извършва внимателно и систематично, като се анализират причините за грешките и се предприемат подходящи действия за тяхното отстраняване.
-
-# 3. Проектиране 
-
-3.1. Обща архитектура – ООП дизайн
-
-Основите на програмата се полагат с четирите основни класа class Column, class Column_String, class Column_Int и class Column_Double (Фигура 2). Първият клас представлява чисто виртуален клас - колона, съдържащ член данни, характеристичен вектор и име. В него също така се съдържат селектори и мутатори, както и методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните – добавяне, смяна и изтриване на данни. Класовете Column_String, Column_Int и Column_Double наследяват класа Column и интерпретират гореспоменатите функции, но по свой определен начин в зависимост от задачата, която изпълняват. Класът Column_String има единствен вектор, съдържащ низове, от стандартната библиотека, и представлява една колона от определена таблица от базата данни. Тъй като този клас е наследник на клас Column, той също така притежава селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. Подобно на клас Column_String, класът Column_Int също има стандартен вектор, но този път данните му са от тип цели числа. Класът Column_Double пък съдържа данни от тип дробни числа. Също като Column_String, двата класа имат селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. Вече запознати с основата на системата база данни, може да се види как изглежда всяка таблица. Всеки файл, отговарящ на една таблица, е от тип .bin и изглежда по следния начин (Фигура 1):
+## 3. Design
+### 3.1 General Architecture - OOP Design
+- The foundations of the program are established through four main classes: class `Column`, class `Column_String`, class `Column_Int`, and class `Column_Double`. The first class represents a purely virtual class - a column, containing member data, a characteristic vector and a name. It also contains selectors and mutators, as well as methods for printing to the screen, writing the data to a file and methods for modifying the data - adding, replacing, and deleting data;
+- The classes `Column_String`, `Column_Int` and `Column_Double` inherit from the `Column` class and interpret the above-mentioned functions in their own specific way depending on the task they perform. The `Column_String` class has a single vector containing strings from the standard library and represents one column of a specific table in the database. Since this class inherits from the Column class, it also possesses selectors and mutators, methods for printing to the screen, writing data to a file and methods for modifying the data;
+- Similarly to `Column_String`, the `Column_Int` class also has a standard vector, but its data is of integer type. The `Column_Double` class contains data of floating-point type. Like `Column_String`, both classes have selectors and mutators, methods for printing to the screen, writing data to a file and methods for modifying the data;
+- Having already become familiar with the foundation of the database system, it can now be seen how each table looks. Each file corresponding to a table is of type `.bin` and has the following structure:
 
 ![1.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_1.PNG) 
 
-    Фигура 1. Примерна таблица.
+- Here, `Number_Of_Columns` represents the number of columns in the given table. After that comes `Type_A`, where `A` is between `1` and `N`. For the types of the specified columns, only `s`, `i` and `d` are valid, corresponding respectively to string, integer and floating-point number;
+- Next is the name of each column - `Name_A`, followed by the number of elements in each vector, which is the same for every column and in this case is equal to `K`. Continuing in order, before each element there is a boolean value (`0` or `1`) indicating whether the element that follows it is valid or not.
 
-Тук Number_Of_Columns е броят на колоните в дадената таблица. След това е Type_A, където А е между 1 и N. За типовете на определените колони тук са валидни само ‘s’, ‘i’ и ‘d’, отговарящи съответно на низ, цяло число или дробно число. Следва името на всяка колона Name_A и броят елементи във всеки вектор, който за всяка колона е еднакъв и в случая е равен на К. Продължавайки по реда, преди всеки елемент на позиция преди него стои булева стойност – 0 или 1, показваща дали елемента след нея е валиден или не. 
-
-3.2. Диаграми
+### 3.2. Diagrams
 
 ![2.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_2.png)
 
-    Фигура 2. UML Диаграма.
+## 4. Implementation and Testing
+### 4.1 Implementation of Classes
+- As mentioned above, the foundations of the program are established through the four main classes class `Column`, class `Column_String`, class `Column_Int` and class `Column_Double`. Class `Column` is a purely virtual class - a column, containing member data: a characteristic vector and a name. It also includes selectors and mutators, as well as methods for printing to the screen, writing data to a file and methods for modifying the data - adding, replacing and deleting data;
+- The classes `Column_String`, `Column_Int` and `Column_Double` inherit from class Column and interpret the aforementioned functions in their own specific way depending on the task they perform. The `Column_String` class contains a single vector from the standard library that holds strings and represents a column of a specific table in the database. Because this class inherits from class Column, it also contains selectors and mutators, methods for printing to the screen, writing data to a file and methods for modifying the data;
+- Similarly to `Column_String`, the `Column_Int` class also contains a vector, but its data is of integer type. The `Column_Double` class, in turn, contains data of floating-point type. Like `Column_String`, both classes have selectors and mutators, methods for printing to the screen, writing data to a file and methods for modifying the data;
+- Next follows class `Table`. Its member data are a heterogeneous container of pointers to objects of class `Column`, as well as the name of the corresponding table for which it is responsible. It also includes mutators and selectors, a method for printing, a method for writing data to a file, methods for determining the different types of columns and checks and functionalities for modification that are required by higher-level classes to determine whether the column type is a string, an integer or a floating-point number. In addition, it contains a function that transforms a given table so that its cells become strings and then transposes it. This is necessary because several methods from higher-level classes require the table to be presented by rows, even though the tables in the system themselves are processed by columns;
+- The next class is class `Database`. It contains an array of `Table`, i.e. an array of tables. Besides behaving like a vector and having mutators and selectors, it also contains a large set of methods necessary for the proper functioning of the program - importing a table into the database and updating the catalog with the new data, a function presenting all the names of the tables contained in the database, a descriptive method showing how many and what types of cells a given table has, a method that prints the rows of a specific table on the screen by pages, `export_base()`, which allows the user to create a copy of a table with a new name, a function for checking whether a table exists in the database and returning its index if it is present, a method for deleting a row, and last but not least a method for inserting a new row into a table based on the first row in the table, since it is always considered valid;
+- The next class is class `Commands`. It contains as member data a Database object and the name of the currently opened catalog for work. It also has twenty methods. Together with the last class in the hierarchy, class Menu, which itself contains a class Commands, they enable the operation of this database system.
+- Below, each function is highlighted individually:
+    - `open()` - the user enters the file name - if such a file is not found, a new file with empty content is created;
+    - `save()` - saves the changes made so far;
+    - `save_as()` - allows the user to save a specific table by specifying the path to the new destination for saving;
+    - `exit()` - asks the user whether they want to save the most recent changes and then closes the application;
+    - `close()` - closes the current catalog and saves the changes made so far;
+    - `help()` - displays a menu with the program’s functions;
+    - `import()` - inserts into the system a table from a file whose name is specified by the user;
+    - `showtables()` - displays the names of all tables in the system;
+    - `describe()` - shows information about the types of the columns of a given table;
+    - `print()` - displays the rows of a given table by pages;
+    - `xport()` - writes the contents of a table into a new text file;
+    - `select()` - according to a column specified by the user, a cell value in that column and a table name, the rows of the table are displayed by pages;
+    - `select_onto()` - the user enters a new table name, the name of a table from the system, the number of columns and the column numbers - a new table with the initially entered name is created, containing only the columns with the specified numbers from the table in the system;
+    - `add_column()` - adds a new column with the largest number in a given table, where for all existing rows in the table the value of this column is empty;
+    - `update()` - based on table name, column number and cell value, modifies the table by column and cell value with new information chosen by the user;
+    - `delete()` - based on table name, column number and cell value, deletes the row of the table containing the specified value;
+    - `insert()` - inserts a new row into a given table based on table name and column;
+    - `credits()` - shows information about the author of the project.
+- The `Commands` class also contains two private methods related to the operation of `print()` and `select_onto()`:
+    - `io_print_by_page()` - allows printing information from a table to the console by rows and by pages;
+    - `io_print_by_page_special()` - allows saving information from a table by rows.
+- Finally, there are two `.hpp` files that are required for the complete implementation of the database management program. In the first one, there is the `run()` function, which is used for entering commands from the user and the `generate_examples()` function, which generates several examples in order to demonstrate the functionality of the program properly.
+- In addition, there is also a template class `Primitive_Pair`, which represents a very simple version of std::pair from the standard library and assists in the operation of the functions mentioned above.
 
-# 4. Реализация и тестване
+### 4.2 Memory Management and Algorithms. Optimizations
+- Good memory management is key to ensuring that the program works efficiently. There are two main aspects:
+    - `allocation` (memory allocation, when a portion of memory is reserved during the execution of the program);
+    - `deallocation` (memory deallocation, releasing memory that the program no longer needs).
+- Due to the large number of identical actions that must be performed when working with the program, proper optimization is required.
 
-4.1. Реализация на класове
-
-Както е посочено по-горе, основите на програмата се полагат с четирите основни класа class Column, class Column_String, class Column_Int и class Column_Double (Фигура 2). Class Column е чисто виртуален клас - колона, съдържащ член данни характеристичен вектор и име. В него също така се съдържат селектори и мутатори, както и методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните – добавяне, смяна и изтриване на данни. 
-
-Класовете Column_String, Column_Int и Column_Double наследяват class Column и интерпретират гореспоменатите функции, но по свой определен начин в зависимост от задачата, която изпълняват. Класът Column_String има единствен вектор от стандартната библиотека, притежаващ низове, и представлява една колона от определена таблица от базата данни. От това, че този клас е наследник на клас Column, той също така съдържа в себе си селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. Подобно на клас Column_String, класът Column_Int също има вектор, но този път данните му са от тип цели числа. Класът Column_Double от своя страна съдържа данни от тип дробни числа. Както Column_String, двата класа има селектори и мутатори, методи за принтиране върху екрана, записване на данните във файл и методи за промяна на данните. 
-
-Следва class Table. Член-данните му са хетерогенният контейнер от указатели от клас Column, както и името на съответната таблица, за която отговаря. Притежава също мутатори и селектори, метод за принтиране, метод за запис на данните във файл, методи за намиране на различните типове на колоните, и проверки и функционалности за промяна, нужни на по-горни класове за това дали типът на колоната е низ, реално число или дробно число. В допълнение, съдържа функция, която трансформира дадена таблица, така че клетките й да са низове и след това я транспонира. Това е нужно, поради факта че няколко метода от по-горните класове изискват представяне по редове, въпреки че самите таблици в системата се обработват по колони. 
-
-Следващият клас е class Database. Той съдържа масив от Table, т.е. масив от таблици. Освен че се държи като вектор, притежава и мутатори, и селектори, притежава и голям набор от методи, нужни за правилното функциониране на програмата – внасяне на таблица в базата и актуализиране на каталога с новите данни, функция, представяща всички имена на съдържащите се в базата таблици, описващ метод за това колко и какви са клетките на дадена таблица, метод, който принтира на екрана редовете на определена таблица по страници, export_base(), който позволява на потребителя да създаде копие на таблица с ново име, функция за проверка дали таблица е в базата данни, връщайки индекса й, ако присъства, метод за изтриване на ред и не на последно място метод за внасяне на нов ред в таблица, базиран на първия ред в таблицата, тъй като той се приема винаги за верен.
-
-Следващият клас е class Commands. Съдържа като член-данна един Database и името на текущия отворен за работа каталог. Притежава и двадесет метода. Заедно с последния клас от йерархията class Menu, който в себе си има един class Commands, позволяват работата с тази система от бази-данни. 
-
-По-долу се акцентира на всяка една функция поотделно: 
-
-- open() – [01] –  въвежда се името на файла, ако не е открит такъв файл създава нов файл с празно съдържание;
-- save() – [02] – запазва направените до този момент промени;
-- save_as() – [03] – позволява на потребителя да запази определена таблица като се укаже и пътят към новата дестинация за запазването;
-- exit() – [04] – пита потребителя дали иска да запази последно направените промени и затваря приложение.
-- close() – [05] – затваря текущия каталог и запазва направените до този момент промени;
-- help() – [06] – извежда меню с функциите на програмата;
-
-![3.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_3.png)
-
-    Фигура 3. Пример
-
-- import() – [07] – по указано от потребителя име на файл, вмъква в системата таблицата от дадения файл;
-- showtables() – [08] – представя имената на всички таблица в системата;
-- describe() – [09] – показва информация за типовете на колоните на дадена таблица;
-- print() – [10] – извежда редовете на дадена таблица по страници;
-- xport() – [11] – записва съдържанието на таблица в нов текстов файл;  
-- select() – [12] – по определена от потребителя колона, стойност на клетка в колона и име на таблица се извеждат редовете на таблицата по страници;
-- select_onto() – [13] – потребителят въвежда ново име за таблица, име на таблица от системата, брой колони, номер на колоните и се създава нова таблица с първовъведеното име като новосъздадената таблица съдържа само колоните с номера, които се съдържат в таблицата от системата;
-- add_column() – [14] – (Фигура 3, Фигура 4) – добавя нова колона с най-голям номер в дадена таблица като за всички съществуващи редове от таблицата, стойността на тази колона е празна; 
-- update() – [15] – по име на таблица, номер на колона и стойност на клетка променя таблицата по колона и стойност на клетка с избрана от потребителя нова информация;
-- delete() – [16] – по име на таблица, по номер на колона и стойност на клетка изтрива реда на таблица, съдържащ определената стойност;
-- insert() – [17] – (Фигура 3) – по име и колона вмъква нов ред в дадена таблица;
-- credits() – [18] – показва информация за автора на проекта;
-
-Класът Commands също така притежава два частни метода, свързани с работата на print() и select_onto():
-
-- io_print_by_page() – позволя изписването на конзолата на информация от таблица по редове и по страници;
-- io_print_by_page_special() - позволя запазването на информация от таблица по редове;
-
-Накрая са два .hpp файла, чрез които са нужни са пълната реализация на програма за управление на бази данни. В първия присъства функцията run(), която се използва за въвеждане на команди от потребителя и функцията generate_examples(), която генерира няколко примера, за да има възможност да се представи работата на програмата по подобаващ начин. 
-
-В допълнение, съществува и template class Primitive_Pair, който представлява много проста версия на std::pair от стандартната библиотека и спомага за работата на горните функции.
-
-    //class Commands:
-    std::cin >> table_name;
-
-    std::size_t index = this->base.is_table_in_database(table_name);
-    if(index == -1)
-    { 
-        return;
-    }
-
-    std::cin >> column_name >> column_type;
-
-    if(column_type == 's' || column_type == 'i' || column_type == 'd') 
- 	    this->base.add_column_base(index, column_name, column_type);
-
-    //class Database:
-    void database::add_column_base(...)
-    {
-        this->data[index].add_column_table(name, type);
-    }
-
-    //class Table:
-    void table::add_column_table(...)
-    {
-        if(type == 's')
-        {
-           std::size_t size = this->data[0]->get_size_of_column();
-           std::vector<std::string> to_add;
-
-            for (std::size_t i = 0; i < size; ++i)
-               to_add.push_back("NULL");
-        
-            std::vector<bool> to_add_bool;
-
-            for (std::size_t i = 0; i < size; ++i)
-               to_add_bool.push_back(0);
-            
-            column* temp = new column_string;
-
-            // fill the column with the upper info;
-            this->data.push_back(temp);
-        }
-        else if(type == 'i') ...
-    }
-
-Заб. Премахнати са част от функциите, променливите и общите действия, за краткост.
-
-    Фигура 4. Част от реализацията на add_column().
-
-4.2. Управление на паметта и алгоритми. Оптимизации.
-
-Доброто управление на паметта (memory management) е ключово за това програмата да работи ефективно. Има два основни аспекта:
-- разпределяне (memory allocation, когато част от паметта се заема при изпълнението на програмата);
-- освобождаване (memory deallocation, на паметта, от която програмата вече не се нуждае).
-
-Поради голямото наличие на еднакви действия, които трябва да се извършват при работа с програмата, е нужна правилна оптимизация. На (Фигура 5) са показани четири метода на class Commands, които се използват в почти всички гореописани функции.
-
-![4.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_5.png)
-
-    Фигура 5. Оптимизация в class Compile.
-
-4.3. Планиране, описание и създаване на тестови сценарии.
-
-Всичко, което може да бъде тествано, е тестов сценарий. Следователно всяка софтуерна функционалност, която е в процес на изпитване и може да бъде разделена на множество по-малки функционалности, може да се нарече „Тестов сценарий“. Тестовите сценарии помагат за оценка на софтуерното приложение според реалните ситуации. С други думи, тестването е процес по изпълняването на програмата, с цел да се открият бъгове, дефекти или грешки.
-
-За да се покаже правилната работа на програмата, е нужно да се представят различни тестови сценарии. 
+### 4.3 Planning Description and Creation of Test Scenarios
+- Everything that can be tested is a test scenario. Therefore, any software functionality that is being tested and can be divided into multiple smaller functionalities can be called a “test scenario.” Test scenarios help evaluate the software application according to real-life situations. In other words, testing is the process of executing the program in order to identify bugs, defects or errors.
+- In order to demonstrate the correct functioning of the program, it is necessary to present different test scenarios.
 
 ![5.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_6.png)
 
-    Фигура 6. save_as()
+    save_as()
 
 ![6.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_7.png)
 
-    Фигура 7. xport()
+    xport()
 
 ![7.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_8.png)
 
-    Фигура 8. open()
+    open()
 
 ![8.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_9.png)
 
-    Фигура 9. describe()
+    describe()
 
 ![9.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_10.png)
 
-    Фигура 10. delete()
+    delete()
 
-![10.png](https://github.com/stoyan-stunji/fmi-oop-database/blob/main/files/pictures/figure_11.PNG)
+## 5. Conclusion
+### 5.1 Summary of the Initial Goals Achieved
+- In conclusion, the program successfully utilizes the building blocks of object-oriented programming through which it was developed, allowing it to efficiently manage data in a database. It provides the ability to extract specific information from the database, which is necessary for identifying trends, generating reports and making decisions based on the available data.
 
-    Фигура 11. column_int::write_into_file()
+### 5.2 Directions for Future Development and Improvement
+- For future development and enhancement of the project, possibilities include adding templates, optimizing data processing algorithms for higher efficiency, improving the program’s interface for easier use and adding additional security and data protection mechanisms. Another improvement could be enhancing the representation of each individual unit as an `std::pair` containing the data and a boolean value indicating its validity. Instead of a single characteristic vector present in the main file of a table, an additional file could be created to represent a boolean matrix, showing the validity of each cell. These improvements would increase the functionality and usability of the program, opening opportunities for extended usage and an enhanced user experience;
+- Inclusion of `Command Pattern` instead of the current interface. 
 
-# 5. Заключение
-
-5.1. Обобщение на изпълнението на началните цели
-
-В заключение, програмата успешно използва градивните елементи на обектно-ориентираното програмиране, чрез които е разработена програмата, която успешно управлява данни в база данни. Тя осигурява възможност за извличане на специфична информация от базата данни, нужни за откриването на тенденции, генерирането на отчети и вземането на решения на базата на наличните данни.
-
-5.2. Насоки за бъдещо развитие и усъвършенстване
-
-За бъдещото развитие и усъвършенстване на проекта може да се разгледа добавянето на шаблони, да се оптимизират алгоритмите за обработка на данните за по-висока ефективност, да се подобри на интерфейса на програмата за по-лесна употреба и да се добавят още допълнителни механизми за сигурност и защита на данните, да се подобри представянето на всяка една отделна единица като std::pair от самата информация и булева стойност за нейната валидност. Вместо един характеристичен вектор, присъстващ във файла с основната информация за дадена таблица би могло да се създаде допълнителен файл, който да представлява булева матрица, показваща валидността на всяка клетка. Тези подобрения биха увеличили функционалността и удобството на програмата, отваряйки възможности за разширени използвания и подобрено потребителско изживяване.
-
-# Използвана литература
-
-- Brian Overland – “C++ Without Fear” (преведено).
+## Literature
+- Brian Overland - “C++ Without Fear”;
 - ccpreference.com
-
-
